@@ -72,7 +72,7 @@ def author_list(request):
 @login_required
 def author_detail(request, pk):
     authors = Author.objects.get(pk=pk)
-    return render(request, 'author_detail.html', {'author': author})
+    return render(request, 'author_detail.html', {'author': authors})
 
 
 class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
@@ -156,10 +156,10 @@ def loan_book_librarian(request, pk):
     return render(request, 'catalog/loan_book_librarian.html', {'form': form})
 
 
-class BookCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+class BookCreate(CreateView):
     model = Book
-    fields = ['title', 'author', 'summary', 'isbn', 'genre']
-    permission_required = 'catalog.add_book_image'
+    fields = ['title', 'author', 'summary', 'isbn', 'genre', 'book_image']
+
 
     def form_valid(self, form):
         post = form.save(commit=False)
@@ -170,8 +170,8 @@ class BookCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
 class BookUpdate(UpdateView):
     model = Book
-    fields = ['title', 'author', 'summary', 'isbn', 'genre']
-    permission_required = 'catalog.edit_book_image'
+    fields = ['title', 'author', 'summary', 'isbn', 'genre', 'book_image']
+
 
     def form_valid(self, form):
         post = form.save(commit=False)

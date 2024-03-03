@@ -1,24 +1,12 @@
-from django.contrib.auth.models import User, Permission
-from django.db.models.signals import post_migrate
+from django.contrib.auth.models import User
 from datetime import date
 
-from django.db import models
-
-
-def create_permissions(sender, **kwargs):
-    # adding permission
-    add_book_image_permission, _ = Permission.objects.get_or_create(codename='add_book_image', name='Add book image')
-    edit_book_image_permission, _ = Permission.objects.get_or_create(codename='edit_book_image', name='Edit book image')
-
-
-post_migrate.connect(create_permissions)
-
-# Create your models here.
 from django.db import models
 from django.urls import reverse  # Used to generate URLs by reversing the URL patterns
 import uuid  # Required for unique book instances
 
 
+# Create your models here.
 class Genre(models.Model):
     """Model representing a book genre."""
     name = models.CharField(max_length=200, help_text='Enter a book genre (e.g. Science Fiction)')
