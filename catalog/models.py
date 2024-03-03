@@ -7,8 +7,8 @@ from django.db import models
 
 def create_permissions(sender, **kwargs):
     # adding permission
-    add_book_image_permission = Permission.objects.get_or_create(codename='add_book_image', name='Add book image')
-    edit_book_image_permission = Permission.objects.get_or_create(codename='edit_book_image', name='Edit book image')
+    add_book_image_permission, _ = Permission.objects.get_or_create(codename='add_book_image', name='Add book image')
+    edit_book_image_permission, _ = Permission.objects.get_or_create(codename='edit_book_image', name='Edit book image')
 
 
 post_migrate.connect(create_permissions)
